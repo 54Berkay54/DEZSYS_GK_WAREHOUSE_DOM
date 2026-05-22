@@ -11,56 +11,35 @@ import warehouse.repository.WarehouseRepository;
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
-	@Autowired
-	private WarehouseRepository repository;
+    @Autowired
+    private WarehouseRepository repository;
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
-	@Override
-	public void run(String... args) throws Exception {
+    @Override
+    public void run(String... args) throws Exception {
 
-		// Initialize product data repository
-		repository.deleteAll();
+        // Initialize product data repository
+        repository.deleteAll();
 
-		// save a couple of product data
-		repository.save(new ProductData("1","00-443175","Bio Orangensaft Sonne","Getraenk", 2500));
-		repository.save(new ProductData("1","00-871895","Bio Apfelsaft Gold","Getraenk", 3420));
-		repository.save(new ProductData("1","01-926885","Ariel Waschmittel Color","Waschmittel", 478));
-		repository.save(new ProductData("1","02-234811","Mampfi Katzenfutter Rind","Tierfutter", 1324));
-		repository.save(new ProductData("2","03-893173","Saugstauberbeutel Ingres","Reinigung", 7390));
-		System.out.println();
+        // 10 Produkte, 3 Kategorien (Getraenk, Waschmittel, Lebensmittel)
+        repository.save(new ProductData("1","00-101","Orangensaft","Getraenk", 2500));
+        repository.save(new ProductData("1","00-102","Apfelsaft","Getraenk", 3420));
+        repository.save(new ProductData("1","00-103","Cola","Getraenk", 1200));
 
-		// fetch all products
-		System.out.println("ProductData found with findAll():");
-		System.out.println("-------------------------------");
-		for (ProductData productdata : repository.findAll()) {
-			System.out.println(productdata);
-		}
-		System.out.println();
+        repository.save(new ProductData("1","01-201","Ariel Color","Waschmittel", 478));
+        repository.save(new ProductData("1","01-202","Persil Tabs","Waschmittel", 300));
+        repository.save(new ProductData("1","01-203","Weichspueler","Waschmittel", 150));
 
-		// Fetch single product
-		System.out.println("Record(s) found with ProductID(\"00-871895\"):");
-		System.out.println("--------------------------------");
-		System.out.println(repository.findByProductID("00-871895"));
-		System.out.println();
+        repository.save(new ProductData("1","02-301","Pasta 500g","Lebensmittel", 1324));
+        repository.save(new ProductData("1","02-302","Reis 1kg","Lebensmittel", 800));
+        repository.save(new ProductData("1","02-303","Tomatensauce","Lebensmittel", 600));
+        repository.save(new ProductData("1","02-304","Olivenoel","Lebensmittel", 200));
 
-		// Fetch all products of Warehouse 1
-		System.out.println("Record(s) found with findByWarehouseID(\"1\"):");
-		System.out.println("--------------------------------");
-		for (ProductData productdata : repository.findByWarehouseID("1")) {
-			System.out.println(productdata);
-		}
-		System.out.println();
+        System.out.println("--- Grundlagen Daten geladen (10 Produkte/3 Kategorien) ---");
 
-		// Fetch all products of Warehouse 2
-		System.out.println("Record(s) found with findByWarehouseID(\"2\"):");
-		System.out.println("--------------------------------");
-		for (ProductData productdata : repository.findByWarehouseID("2")) {
-			System.out.println(productdata);
-		}
-
-	}
+    }
 
 }
